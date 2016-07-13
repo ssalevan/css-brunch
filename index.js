@@ -8,6 +8,7 @@ const cssModulify = (path, data, map) => {
   const getJSON = (_, _json) => json = _json;
 
   return postcss([postcssModules({getJSON})]).process(data, {from: path, map}).then(x => {
+    console.log("EXPORTS FROM PATH", path, "MAP", map, "X.MAP", x.map, ":", JSON.stringify(json))
     const exports = 'module.exports = ' + JSON.stringify(json) + ';';
     return { data: x.css, map: x.map, exports };
   });
